@@ -1,6 +1,7 @@
 package com.taller.cloud.Taller1_Cloud.service.Impl;
 
 import com.taller.cloud.Taller1_Cloud.model.Cryptocurrency;
+import com.taller.cloud.Taller1_Cloud.model.Quote;
 import com.taller.cloud.Taller1_Cloud.repository.CryptocurrencyRepository;
 import com.taller.cloud.Taller1_Cloud.service.CryptocurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,4 +29,16 @@ public class CryptocurrencyServiceImpl implements CryptocurrencyService {
     public Cryptocurrency createCryptocurrency(Cryptocurrency cryptocurrency) {
         return cryptocurrencyRepository.save(cryptocurrency);
     }
+
+    @Override
+    public Cryptocurrency updateRank(Long id) {
+        Cryptocurrency currey = getCyroCryptocurrency(id);
+        List<Quote> quotes = currey.getQuote();
+        for(int x =0; x< quotes.size(); x++){
+              Quote price = quotes.get(x);
+
+        }
+        return null;
+    }
+
 }

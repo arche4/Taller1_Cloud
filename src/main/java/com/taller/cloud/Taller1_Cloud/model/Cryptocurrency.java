@@ -1,37 +1,47 @@
 package com.taller.cloud.Taller1_Cloud.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "tbl_Cryptocurrency")
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cryptocurrency {
+@Builder
+public class Cryptocurrency implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @JsonProperty("currency_name")
+    @NotBlank(message = "El name no puede ser vacio")
+    @Column(name = "currency_name", unique = true)
     private String name;
+    @JsonProperty("currency_symbol")
+    @NotBlank(message = "El symbol no puede ser vacio")
+    @Column(name = "currency_symbol", unique = true)
     private String symbol;
-    private Long rank;
+    @Column(name = "currency_rank")
+    private int rank;
 
     @OneToMany(
             mappedBy = "cryptocurrency",
             cascade = CascadeType.ALL
     )
     private List<Quote> quote = new ArrayList<>();
-
 
 }
