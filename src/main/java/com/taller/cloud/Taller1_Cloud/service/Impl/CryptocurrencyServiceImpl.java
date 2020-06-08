@@ -7,6 +7,7 @@ import com.taller.cloud.Taller1_Cloud.service.CryptocurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -27,18 +28,31 @@ public class CryptocurrencyServiceImpl implements CryptocurrencyService {
 
     @Override
     public Cryptocurrency createCryptocurrency(Cryptocurrency cryptocurrency) {
+        cryptocurrency.setRank(0);
         return cryptocurrencyRepository.save(cryptocurrency);
     }
 
     @Override
     public Cryptocurrency updateRank(Long id) {
+        double precio = 0;
         Cryptocurrency currey = getCyroCryptocurrency(id);
-        List<Quote> quotes = currey.getQuote();
-        for(int x =0; x< quotes.size(); x++){
-              Quote price = quotes.get(x);
-
+        if (currey != null) {
+            List<Quote> quotes = currey.getQuote();
+            for (Quote cuota : quotes) {
+                if (precio < cuota.getPrice()) {
+                    precio = cuota.getPrice();
+                    currey.setRank(cuota.getId());
+                }
+            }
+            return cryptocurrencyRepository.save(currey);
+        } else {
+            return null;
         }
-        return null;
+    }
+
+    @Override
+    public List<Cryptocurrency> findByName(String name) {
+        return cryptocurrencyRepository.findByName(name);
     }
 
 }

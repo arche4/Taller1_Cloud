@@ -1,6 +1,9 @@
 package com.taller.cloud.Taller1_Cloud.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +12,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Cryptocurrency implements Serializable {
+public class Cryptocurrency {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,8 +37,9 @@ public class Cryptocurrency implements Serializable {
     @Column(name = "currency_symbol", unique = true)
     private String symbol;
     @Column(name = "currency_rank")
-    private int rank;
+    private long rank;
 
+    @JsonManagedReference
     @OneToMany(
             mappedBy = "cryptocurrency",
             cascade = CascadeType.ALL

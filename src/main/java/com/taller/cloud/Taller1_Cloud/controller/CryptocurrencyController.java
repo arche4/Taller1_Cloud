@@ -29,13 +29,13 @@ public class CryptocurrencyController {
     @Autowired
     private NotFoundException notFoundException;
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Cryptocurrency> getCryptocurrency(@PathVariable("id") Long id){
-        Cryptocurrency Cryptocurrency = cryptocurrencyService.getCyroCryptocurrency(id);
-        if(Cryptocurrency == null){
+    @GetMapping(value = "/{name}")
+    public ResponseEntity<List<Cryptocurrency>> getCryptocurrency(@PathVariable("name") String name){
+        List<Cryptocurrency> nameCurrency = cryptocurrencyService.findByName(name);
+        if(nameCurrency == null){
             return ResponseEntity.notFound().build();
         }
-            return ResponseEntity.ok(Cryptocurrency);
+        return ResponseEntity.ok(nameCurrency);
     }
 
     @GetMapping
