@@ -5,11 +5,11 @@ server:
 spring:
   # DB
   datasource:
-    url: jdbc:postgresql://localhost:5432/Pruebas
+    url: jdbc:postgresql://ec2-50-17-90-177.compute-1.amazonaws.com:5432/d5a6tqi3plom8c
     driver-class-name: org.postgresql.Driver
     platform: postgres
-    username: postgres
-    password: root
+    username: wqtqvwcphiommn
+    password: 097c49b194975e128ce1523930cca639f0b761282f9f77c5180f8461e9da7a3c
   jpa:
     hibernate.ddl-auto: update
     generate-ddl: true

@@ -68,9 +68,7 @@ public class CryptocurrencyController {
             ResponseEntity<?> exception = notFoundException.Exception("Symbol ya existe");
             return exception;
         }
-
-
-
+        
         Cryptocurrency cryptocurrencyCreated = cryptocurrencyService.createCryptocurrency(cryptocurrency);
         if (cryptocurrencyCreated==null){
             return ResponseEntity.notFound().build();
