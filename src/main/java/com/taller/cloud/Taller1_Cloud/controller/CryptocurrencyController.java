@@ -32,7 +32,7 @@ public class CryptocurrencyController {
     @GetMapping(value = "/{name}")
     public ResponseEntity<List<Cryptocurrency>> getCryptocurrency(@PathVariable("name") String name){
         List<Cryptocurrency> nameCurrency = cryptocurrencyService.findByName(name);
-        if(nameCurrency == null){
+        if(nameCurrency.isEmpty()){
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(nameCurrency);
