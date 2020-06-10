@@ -9,7 +9,8 @@ public interface CryptocurrencyService {
     public List<Cryptocurrency> listAllCryptocurrencies();
     public Cryptocurrency getCyroCryptocurrency(Long id);
     public Cryptocurrency createCryptocurrency(Cryptocurrency cryptocurrency);
-    public Cryptocurrency updateRank(Long id);
+    public Cryptocurrency updateRank(Long id, Long quoteId);
     public List<Cryptocurrency> findByName(String name);
+    public List<Cryptocurrency> findBySymbol(String symbol);
 
 }

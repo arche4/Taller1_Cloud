@@ -52,6 +52,25 @@ public class CryptocurrencyController {
             ResponseEntity<?> exception = notFoundException.Exception("name y symbol no puede ser vacio");
             return exception;
         }
+        List<Cryptocurrency> nameCurrency = cryptocurrencyService.findByName(cryptocurrency.getName());
+        List<Cryptocurrency> SymbolCurrency = cryptocurrencyService.findBySymbol(cryptocurrency.getSymbol());
+
+        if(!nameCurrency.isEmpty() && !SymbolCurrency.isEmpty()){
+            ResponseEntity<?> exception = notFoundException.Exception("name y Symbol ya existe");
+            return exception;
+        }
+
+        if(!nameCurrency.isEmpty()){
+            ResponseEntity<?> exception = notFoundException.Exception("name ya existe");
+            return exception;
+        }
+        if(!SymbolCurrency.isEmpty()){
+            ResponseEntity<?> exception = notFoundException.Exception("Symbol ya existe");
+            return exception;
+        }
+
+
+
         Cryptocurrency cryptocurrencyCreated = cryptocurrencyService.createCryptocurrency(cryptocurrency);
         if (cryptocurrencyCreated==null){
             return ResponseEntity.notFound().build();

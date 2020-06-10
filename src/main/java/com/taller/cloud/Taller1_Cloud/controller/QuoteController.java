@@ -51,17 +51,41 @@ public class QuoteController {
             ResponseEntity<?> exception = notFoundException.Exception("name y symbol no puede ser vacio");
             return exception;
         }
+        if (quote.getPrice() < 1) {
+            ResponseEntity<?> exception = notFoundException.Exception("El precio no puede ser negativo");
+            return exception;
+        }
 
-        if(!quote.getSymbol().equals("USD") && !quote.getSymbol().equals("EUR") && !quote.getSymbol().equals("GBP"))
-            throw new Exception("Solo es posible adicionar estas tres divisas\n" +
-                "USD-EUR-GBP ");
+        if(!quote.getSymbol().equals("USD") && !quote.getSymbol().equals("EUR") && !quote.getSymbol().equals("GBP")) {
+            ResponseEntity<?> exception = notFoundException.Exception("Solo es posible adicionar estas tres divisas: USD-EUR-GBP");
+            return exception;
+        }
+
+        List<Quote> nameQuote = quoteService.findByNameAndCryptocurrency(quote.getName(), currency);
+        List<Quote> symbolQuote = quoteService.findBySymbolAndCryptocurrency(quote.getSymbol(), currency);
+
+        if(!nameQuote.isEmpty() && !symbolQuote.isEmpty()){
+            ResponseEntity<?> exception = notFoundException.Exception("name y Symbol ya existe");
+            return exception;
+        }
+
+        if(!nameQuote.isEmpty()){
+            ResponseEntity<?> exception = notFoundException.Exception("name ya existe");
+            return exception;
+        }
+        if(!symbolQuote.isEmpty()){
+            ResponseEntity<?> exception = notFoundException.Exception("Symbol ya existe");
+            return exception;
+        }
+
+
 
         quote.setCryptocurrency(currency);
         Quote quoteCreate = quoteService.creaQuote(quote);
         if (quoteCreate==null){
             return ResponseEntity.notFound().build();
         }else{
-            Cryptocurrency updateRank = cryptocurrencyService.updateRank(id);
+            Cryptocurrency updateRank = cryptocurrencyService.updateRank(id, quoteCreate.getId() );
             if (updateRank==null){
                 ResponseEntity<?> exception = notFoundException.Exception("Se presento un erro cambiando el rank");
                 return exception;

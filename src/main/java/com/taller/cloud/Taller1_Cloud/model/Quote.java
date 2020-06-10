@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 import java.util.Date;
 
@@ -26,11 +27,8 @@ public class Quote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "El name no puede ser vacio")
-    @Column(name = "quote_name", unique = true)
     private String name;
-    @NotBlank(message = "El symbol no puede ser vacio")
-    @Column(name = "quote_symbol", unique = true)
+    @NotEmpty(message = "El symbol no puede ser vacio")
     private String symbol;
     @Positive(message = "El price debe ser positivo")
     @Column(name = "quote_price")

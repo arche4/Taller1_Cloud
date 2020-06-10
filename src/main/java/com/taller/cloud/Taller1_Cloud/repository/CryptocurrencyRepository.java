@@ -11,5 +11,6 @@ import java.util.List;
 public interface CryptocurrencyRepository extends JpaRepository<Cryptocurrency, Long> {
 
     public List<Cryptocurrency> findByName(String name);
+    public List<Cryptocurrency> findBySymbol(String symbol);
 
 }

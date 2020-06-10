@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,11 +30,11 @@ public class Cryptocurrency {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @JsonProperty("currency_name")
-    @NotBlank(message = "El name no puede ser vacio")
+    @NotEmpty(message = "El name no puede ser vacio")
     @Column(name = "currency_name", unique = true)
     private String name;
     @JsonProperty("currency_symbol")
-    @NotBlank(message = "El symbol no puede ser vacio")
+    @NotEmpty(message = "El symbol no puede ser vacio")
     @Column(name = "currency_symbol", unique = true)
     private String symbol;
     @Column(name = "currency_rank")
@@ -46,4 +47,12 @@ public class Cryptocurrency {
     )
     private List<Quote> quote = new ArrayList<>();
 
+
+    public Cryptocurrency(String nameP, String symbolp, Long rankp, List<Quote> quotep) {
+        this.name=nameP;
+        this.symbol=symbolp;
+        this.rank=rankp;
+        this.quote=quotep;
+
+    }
 }

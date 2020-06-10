@@ -1,6 +1,7 @@
 package com.taller.cloud.Taller1_Cloud.service.Impl;
 
 import com.taller.cloud.Taller1_Cloud.acl.Exception;
+import com.taller.cloud.Taller1_Cloud.model.Cryptocurrency;
 import com.taller.cloud.Taller1_Cloud.model.Quote;
 import com.taller.cloud.Taller1_Cloud.repository.QuoteRepository;
 import com.taller.cloud.Taller1_Cloud.service.QuoteService;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.Date;
+import java.util.List;
 
 
 @Service
@@ -31,6 +33,16 @@ public class QuoteServiceImpl implements QuoteService {
             throw new Exception("Nombre y simbolo ya existen", ex);
         }
 
+    }
+
+    @Override
+    public List<Quote> findByNameAndCryptocurrency(String name, Cryptocurrency currency) {
+        return quoteRepository.findByNameAndCryptocurrency(name, currency);
+    }
+
+    @Override
+    public List<Quote> findBySymbolAndCryptocurrency(String symbol, Cryptocurrency currency) {
+        return quoteRepository.findBySymbolAndCryptocurrency(symbol, currency);
     }
 
 
