@@ -12,18 +12,18 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Optional;
 
-//@Configuration
-//@EnableSwagger2
+@Configuration
+@EnableSwagger2
 public class SwaggerConfig {
 
-    //@Bean
-    //public Docket api() {
-       // return new Docket(DocumentationType.SWAGGER_2)
-         //       .select()
-           //     .apis(RequestHandlerSelectors.basePackage("com.taller.cloud.Taller1_Cloud.controller"))
-            //    .paths(PathSelectors.any())
-              // .build();
-    //}
+    @Bean
+    public Docket api() {
+       return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+               .apis(RequestHandlerSelectors.basePackage("com.taller.cloud.Taller1_Cloud.controller"))
+                .paths(PathSelectors.any())
+               .build();
+    }
 
 
 }
